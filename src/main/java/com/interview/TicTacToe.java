@@ -95,7 +95,7 @@ public class TicTacToe {
         Character winner = getNextPlayer(inputGameCharacters);
         if (winner != null) return winner;
 
-        return 'D';
+        return ' ';
 
     }
 
@@ -119,9 +119,9 @@ public class TicTacToe {
         }
 
         if (total_o_played_rounds > total_x_played_rounds) {
-            return PLAYER_O;
-        } else {
             return PLAYER_X;
+        } else {
+            return PLAYER_O;
         }
     }
 
