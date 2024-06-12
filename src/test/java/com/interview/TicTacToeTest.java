@@ -31,21 +31,33 @@ public class TicTacToeTest {
     }
 
     @Test
-    public void getHorizontalWinner() {
+    public void testHorizontalWinner() {
         String string = "XXXOOXOOX";
         Assertions.assertEquals('X', TicTacToe.getWinner(string));
     }
 
     @Test
-    public void getVerticalWinner() {
+    public void testVerticalWinner() {
         String string = "XOX=OX=O=";
         Assertions.assertEquals('O', TicTacToe.getWinner(string));
     }
 
     @Test
-    public void getDiagonalWinner() {
+    public void testDiagonalWinner() {
         String string = "XXO=XO=OX";
         Assertions.assertEquals('X', TicTacToe.getWinner(string));
+    }
+
+    @Test
+    public void testNextPlayerX() {
+        String string = "X        ";
+        Assertions.assertEquals('X', TicTacToe.getNextPlayer(string));
+    }
+
+    @Test
+    public void testNextPlayerO() {
+        String string = "O        ";
+        Assertions.assertEquals('O', TicTacToe.getNextPlayer(string));
     }
 
 }
