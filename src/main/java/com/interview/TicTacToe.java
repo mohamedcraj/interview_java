@@ -22,7 +22,7 @@ public class TicTacToe {
                 log.info("Winner from Line {} ==> {}", i, winner.equals("D") ? "Draw" : winner);
             }
         } catch (IOException e) {
-
+            log.error("Exception Occurred" + e.getLocalizedMessage());
         }
     }
 
