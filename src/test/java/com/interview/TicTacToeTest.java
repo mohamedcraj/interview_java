@@ -20,7 +20,7 @@ public class TicTacToeTest {
 
     @Test
     public void testGameNotOver() {
-        String string = "XXXOOXXO=";
+        String string = "XXXOOXXO";
         Assertions.assertFalse(TicTacToe.isGameOver(string));
     }
 

@@ -22,7 +22,7 @@ public class TicTacToe {
                 log.info("Winner from Line {} ==> {}", i, winner.equals("D") ? "Draw" : winner);
             }
         } catch (IOException e) {
-            log.error("Exception Occurred" + e.getLocalizedMessage());
+            log.error("Exception Occurred: {}", e.getLocalizedMessage());
         }
     }
 
@@ -31,17 +31,22 @@ public class TicTacToe {
         if (inputGameCharacters.length > maxRoundPerGame) {
             log.error("InvalidGame");
             return false;
-        }
-        for (char gameCharacter : inputGameCharacters) {
-            if (gameCharacter == '=') {
-                return false;
-            }
+        } else if (inputGameCharacters.length < maxRoundPerGame ) {
+            return false;
         }
         return true;
     }
 
     public static char getWinner(String string) {
         char[] inputGameCharacters = string.toCharArray();
+        Character winner = getWinner(inputGameCharacters);
+        if (winner != null) return winner;
+
+        return 'D';
+
+    }
+
+    private static Character getWinner(char[] inputGameCharacters) {
         //horizontal
         for (int i = 0; i < maxRoundPerGame; i += 3) {
             if (inputGameCharacters[i] != ' ' && inputGameCharacters[i] == inputGameCharacters[i + 1] && inputGameCharacters[i] == inputGameCharacters[i + 2]) {
@@ -63,9 +68,7 @@ public class TicTacToe {
         if (inputGameCharacters[2] != ' ' && inputGameCharacters[2] == inputGameCharacters[4] && inputGameCharacters[2] == inputGameCharacters[6]) {
             return inputGameCharacters[2];
         }
-
-        return 'D';
-
+        return null;
     }
 
 }
