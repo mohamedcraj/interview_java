@@ -1,4 +1,4 @@
-package com.interview;
+package com.interview.v2;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.io.IOException;
  * Date: 16/6/2024
  */
 @Slf4j
-public class TicTacToeV2 {
+public class TicTacToe {
 
     public static final int MAX_BOARD_SIZE = 9;
     public static final int MAX_BOARD_ROW_COL = 3;
@@ -36,7 +36,9 @@ public class TicTacToeV2 {
             while ((line = reader.readLine()) != null) {
                 i++;
                 if (type.equalsIgnoreCase(WINNER)) {
-                    identifyWinner(line);
+                    String identifyWinner = identifyWinner(line);
+                    System.out.println(identifyWinner);
+                    System.out.println("-------------");
                 } else if (type.equalsIgnoreCase(NEXT_PLAYER)) {
                     String winner = String.valueOf(getNextPlayer(line));
                     log.info("Next play for Line {} ==> {}", i, winner.equals("D") ? "Draw" : winner);
@@ -51,15 +53,15 @@ public class TicTacToeV2 {
         }
     }
 
-    static void identifyWinner(String gameBoard) {
+    static String identifyWinner(String gameBoard) {
         ResultTuple<Character, Boolean> isWinnerAlreadyIdentified = null;
+        System.out.println("original gameBoard before formatting: " + gameBoard);
         char[][] currentBoard = getBoard(gameBoard);
         for (int i = 0; i < MAX_BOARD_ROW_COL; i++) {
             assert currentBoard != null;
             isWinnerAlreadyIdentified = isWinnerAtHorizontal(currentBoard[i]);
             if (isWinnerAlreadyIdentified.getResult()) {
-                System.out.println("Winner found at Row [" + i + "] is - [" + isWinnerAlreadyIdentified.getPlayer() + "]");
-                break;
+                return "Winner found at Row [" + i + "] is - [" + isWinnerAlreadyIdentified.getPlayer() + "]";
             }
         }
 
@@ -67,8 +69,7 @@ public class TicTacToeV2 {
             for (int i = 0; i < MAX_BOARD_ROW_COL; i++) {
                 isWinnerAlreadyIdentified = isWinnerAtVertical(currentBoard, i);
                 if (isWinnerAlreadyIdentified.getResult()) {
-                    System.out.println("Winner found at Column [" + i + "] - [" + isWinnerAlreadyIdentified.getPlayer() + "]");
-                    break;
+                    return "Winner found at Column [" + i + "] - [" + isWinnerAlreadyIdentified.getPlayer() + "]";
                 }
             }
         }
@@ -81,7 +82,7 @@ public class TicTacToeV2 {
 
             isWinnerAlreadyIdentified = isWinnerAtDiagonal(leftDiagonal);
             if (isWinnerAlreadyIdentified.getResult()) {
-                System.out.println("Winner found at Left diagonal - [" + isWinnerAlreadyIdentified.getPlayer() + "]");
+                return "Winner found at Left diagonal - [" + isWinnerAlreadyIdentified.getPlayer() + "]";
             }
         }
 
@@ -95,14 +96,10 @@ public class TicTacToeV2 {
 
             isWinnerAlreadyIdentified = isWinnerAtDiagonal(rightDiagonal);
             if (isWinnerAlreadyIdentified.getResult()) {
-                System.out.println("Winner found at Right diagonal - [" + isWinnerAlreadyIdentified.getPlayer() + "]");
+                return "Winner found at Right diagonal - [" + isWinnerAlreadyIdentified.getPlayer() + "]";
             }
         }
-
-        if (!isWinnerAlreadyIdentified.getResult()) {
-            System.out.println("No Winner found at Row / Column / Left Diagonal / Right Diagonal - Match Draw - [D]");
-        }
-        System.out.println("-------------");
+        return "No Winner found at Row / Column / Left Diagonal / Right Diagonal - Match Draw - [D]";
     }
 
     private static char[][] getBoard(String gameCurrentState) {
