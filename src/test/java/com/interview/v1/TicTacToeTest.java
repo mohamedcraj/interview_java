@@ -1,4 +1,4 @@
-package com.interview;
+package com.interview.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
